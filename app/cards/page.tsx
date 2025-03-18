@@ -14,7 +14,7 @@ const products = [
 
 export default function CartPage() {
   const [cart, setCart] = useState<{ id: string; quantity: number }[]>([]);
-
+// ?fff?
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCart(storedCart);
