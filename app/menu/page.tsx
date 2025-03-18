@@ -21,9 +21,18 @@ export default function MenuPage() {
     setCart(storedCart);
   }, []);
 
-  // إضافة منتج إلى الطلب
-  const addToCart = (product: any) => {
-    let updatedCart = [...cart];
+
+  type Product = {
+    id: string;
+    name: string;
+    price: number;
+    quantity?: number; // إذا كان هناك كمية اختيارية
+  };
+  
+  const addToCart = (product: Product) => {
+
+    const updatedCart = [...cart];
+
     const existingProduct = updatedCart.find((item) => item.id === product.id);
 
     if (existingProduct) {
