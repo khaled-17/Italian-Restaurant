@@ -17,6 +17,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     // التحقق مما إذا كان المنتج موجودًا بالفعل في السلة
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    
     const exists = cart.find((item: any) => item.id === product?.id);
     if (exists) setAdded(true);
   }, [product]);
@@ -24,7 +25,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const addToCart = () => {
     if (!product) return;
 
-    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
     const existingProduct = cart.find((item: any) => item.id === product.id);
 
     if (existingProduct) {
