@@ -17,8 +17,15 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     // التحقق مما إذا كان المنتج موجودًا بالفعل في السلة
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    
-    const exists = cart.find((item: any) => item.id === product?.id);
+
+type CartItem = {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+};
+
+const exists = cart.find((item: CartItem) => item.id === product?.id);
     if (exists) setAdded(true);
   }, [product]);
 
@@ -27,8 +34,15 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-    const existingProduct = cart.find((item: any) => item.id === product.id);
-
+    type CartItem = {
+      id: string;
+      name: string;
+      price: number;
+      quantity: number;
+    };
+    
+    const existingProduct = cart.find((item: CartItem) => item.id === product.id);
+    
     if (existingProduct) {
       existingProduct.quantity += 1;
     } else {
