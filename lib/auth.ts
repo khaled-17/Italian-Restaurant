@@ -1,7 +1,7 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {  // تحديد النوع هنا
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -10,7 +10,6 @@ export const authOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        // بيانات وهمية
         const dummyUser = { id: "1", name: "Khaled", email: "test@email.com", password: "123456" };
 
         if (credentials?.email === dummyUser.email && credentials?.password === dummyUser.password) {
@@ -21,9 +20,9 @@ export const authOptions = {
     })
   ],
   pages: {
-    signIn: "/login" // تحديد صفحة تسجيل الدخول المخصصة
+    signIn: "/login"
   },
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt" },  // هنا المشكلة المحتملة
   secret: process.env.NEXTAUTH_SECRET || "mysecret"
 };
 

@@ -90,8 +90,9 @@ export default function MenuPage() {
                   ❌ إزالة من الطلب
                 </Button>
               ) : (
-                <Button className="w-full mt-3 bg-primary text-white py-2 rounded-lg" onClick={() => addToCart(product)}>
-                  🛒 أضف إلى الطلب
+                <Button className="w-full mt-3 bg-primary text-white py-2 rounded-lg"  onClick={() => addToCart({ ...product, price: Number(product.price.replace("EGP", "").trim()) })}>
+
+                   🛒 أضف إلى الطلب
                 </Button>
               )}
             </div>

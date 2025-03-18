@@ -4,28 +4,32 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation"; // ✅ استدعاء useParams للحصول على ID المنتج
 
 const products = [
   { id: "1", name: "بيتزا مارغريتا", price: "120 EGP", image: "/pizza.jpg", description: "بيتزا كلاسيكية مع صلصة الطماطم الطازجة وجبنة الموزاريلا." },
   { id: "2", name: "باستا ألفريدو", price: "150 EGP", image: "/pasta.jpg", description: "باستا بالكريمة مع صلصة ألفريدو الكلاسيكية والدجاج المشوي." },
 ];
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const product = products.find((p) => p.id === params.id);
+export default function ProductPage() {
+  const params = useParams(); // ✅ الحصول على params من Next.js
+   const product = params ? products.find((p) => p.id === params.id) : null;
+
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
-    // التحقق مما إذا كان المنتج موجودًا بالفعل في السلة
+    if (!product) return;
+
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-type CartItem = {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-};
+    type CartItem = {
+      id: string;
+      name: string;
+      price: number;
+      quantity: number;
+    };
 
-const exists = cart.find((item: CartItem) => item.id === product?.id);
+    const exists = cart.find((item: CartItem) => item.id === product.id);
     if (exists) setAdded(true);
   }, [product]);
 
@@ -40,9 +44,9 @@ const exists = cart.find((item: CartItem) => item.id === product?.id);
       price: number;
       quantity: number;
     };
-    
+
     const existingProduct = cart.find((item: CartItem) => item.id === product.id);
-    
+
     if (existingProduct) {
       existingProduct.quantity += 1;
     } else {
