@@ -1,4 +1,4 @@
-"use client"; // تأكد من استخدام "use client" 
+"use client"; // تأكد من استخدام "use client"
 
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -17,20 +17,31 @@ export default function Navbar() {
 
         {/* الروابط */}
         <div className="flex items-center space-x-6">
-          <Link href="/" className="text-gray-700 hover:text-primary">
+          <Link
+            href="/"
+            className="text-gray-700 hover:text-primary hover:bg-gray-100 focus:bg-gray-200 active:bg-gray-200 px-3 py-2 rounded-md transition duration-200"
+          >
             الرئيسية
           </Link>
-          <Link href="/menu" className="text-gray-700 hover:text-primary">
+          <Link
+            href="/menu"
+            className="text-gray-700 hover:text-primary hover:bg-gray-100 focus:bg-gray-200 active:bg-gray-200 px-3 py-2 rounded-md transition duration-200"
+          >
             قائمة الطعام
           </Link>
-          <Link href="/cards" className="text-gray-700 hover:text-primary">
+          <Link
+            href="/cards"
+            className="text-gray-700 hover:text-primary hover:bg-gray-100 focus:bg-gray-200 active:bg-gray-200 px-3 py-2 rounded-md transition duration-200"
+          >
             الكارد
           </Link>
 
           {/* التحقق من حالة المستخدم */}
           {session ? (
             <>
-              <span className="text-gray-700">مرحبًا، {session.user?.name}</span>
+              <span className="text-gray-700">
+                مرحبًا، {session.user?.name}
+              </span>
               <Button
                 className="bg-red-500 text-white hover:bg-red-600"
                 onClick={() => signOut()}
